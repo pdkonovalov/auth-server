@@ -1,0 +1,23 @@
+version: '3.9'
+
+services:
+  auth-server:
+    depends_on:
+      - storage
+    restart: unless-stopped
+    build:
+      context: .
+    ports:
+      - 80:80
+    environment:
+      - Host=0.0.0.0
+      - Port=80
+      - DatabaseUrl=postgres://postgres:postgres@storage:5432/postgres
+      - JwtSecret=4781abbb-5d19-4e18-9f90-08c64b8d135f
+  storage:
+    image: postgres
+    restart: unless-stopped
+    environment:
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_USER=postgres
+      - POSTGRES_DB=postgres
