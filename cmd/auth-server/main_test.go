@@ -193,6 +193,12 @@ func TestRefreshJwtEndpoint(t *testing.T) {
 
 	defer storage.Shutdown()
 
-	storage.DeleteJti(oldJti)
-	storage.DeleteJti(newJti)
+	err = storage.DeleteJti(oldJti)
+	if err != nil {
+		t.Fatalf("error clear test data from storage: %s", err)
+	}
+	err = storage.DeleteJti(newJti)
+	if err != nil {
+		t.Fatalf("error clear test data from storage: %s", err)
+	}
 }
